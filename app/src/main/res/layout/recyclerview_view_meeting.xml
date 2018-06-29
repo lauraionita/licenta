@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="319dp"
+        android:layout_height="212dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="17dp"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="361dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="#e3e2ad"
+                android:orientation="horizontal">
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="32dp"
+                    android:layout_height="237dp"
+                    android:layout_weight="1"
+                    android:background="#e3e2ad"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvDayMeeting"
+                        android:layout_width="119dp"
+                        android:layout_height="64dp"
+                        android:layout_gravity="top|left"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="28dp"
+                        android:gravity="left"
+                        android:text="Ziua meeting"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvMonthMeeting"
+                        android:layout_width="112dp"
+                        android:layout_height="66dp"
+                        android:layout_gravity="top|left"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:gravity="left"
+                        android:text="Luna meeting"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvDayMeeting"
+                        app:layout_constraintVertical_bias="0.555" />
+
+
+                </android.support.constraint.ConstraintLayout>
+
+                <View
+                    android:id="@+id/verticalLine"
+                    android:layout_width="3dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/green"></View>
+
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="160dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="#e3e2ad"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/imageView3"
+                        android:layout_width="31dp"
+                        android:layout_height="19dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="16dp"
+                        android:src="@drawable/ic_location_on_black_24dp"
+                        app:layout_constraintEnd_toStartOf="@+id/tvLocation"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="MissingConstraints" />
+
+                    <TextView
+                        android:id="@+id/tvLocation"
+                        android:layout_width="147dp"
+                        android:layout_height="37dp"
+                        android:layout_marginEnd="56dp"
+                        android:layout_marginRight="56dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_toLeftOf="@+id/imageView1"
+                        android:text="Location"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/imageView1"
+                        android:layout_width="23dp"
+                        android:layout_height="20dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="88dp"
+                        android:src="@drawable/ic_person_add_black_24dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
+                    <TextView
+                        android:id="@+id/tvStartMeeting"
+                        android:layout_width="133dp"
+                        android:layout_height="27dp"
+                        android:layout_gravity="top|right"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:gravity="left"
+                        android:text="Start meeting"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.329"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvLocation" />
+
+                    <TextView
+                        android:id="@+id/tvEndMeeting"
+                        android:layout_width="134dp"
+                        android:layout_height="26dp"
+                        android:layout_gravity="top|right"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:gravity="left"
+                        android:text="End meeting"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.333"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvStartMeeting" />
+
+                    <TextView
+                        android:id="@+id/tvAddPeople"
+                        android:layout_width="151dp"
+                        android:layout_height="28dp"
+                        android:layout_gravity="top|right"
+                        android:layout_marginEnd="44dp"
+                        android:layout_marginTop="12dp"
+                        android:gravity="left"
+                        android:text="Add people"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvEndMeeting" />
+
+                    <TextView
+                        android:id="@+id/tvAtendees"
+                        android:layout_width="149dp"
+                        android:layout_height="52dp"
+                        android:layout_gravity="top|right"
+                        android:layout_marginEnd="44dp"
+                        android:layout_marginTop="20dp"
+                        android:gravity="left"
+                        android:text="Atendees"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvAddPeople" />
+
+                    <ImageView
+                        android:id="@+id/imageView2"
+                        android:layout_width="26dp"
+                        android:layout_height="22dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginTop="8dp"
+                        android:src="@drawable/ic_people_black_24dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/tvAtendees"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/imageView1"
+                        app:layout_constraintVertical_bias="0.741" />
+
+                    <TextView
+                        android:id="@+id/tvIdMeet"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:textSize="16sp"
+                        android:textStyle="italic"
+                        android:typeface="serif"
+                        android:visibility="invisible" />
+
+                    <ImageButton
+                        android:id="@+id/img_cancel"
+                        android:layout_width="23dp"
+                        android:layout_height="16dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="44dp"
+                        android:layout_marginStart="8dp"
+                        android:background="@android:color/background_light"
+                        android:src="@drawable/ic_close_black_24dp"
+                        app:layout_constraintBottom_toTopOf="@+id/tvLocation"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0" />
+                </android.support.constraint.ConstraintLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+
+
+</RelativeLayout >
