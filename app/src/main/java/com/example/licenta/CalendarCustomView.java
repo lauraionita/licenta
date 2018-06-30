@@ -1,7 +1,7 @@
 package com.example.licenta;
 
 import android.content.Context;
-import android.database.Cursor;
+import android.content.SharedPreferences;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,10 +14,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.licenta.DatabaseQuery;
-import com.example.licenta.EventObjects;
-import com.example.licenta.GridAdapter;
-import com.example.licenta.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -27,6 +29,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
+import static android.content.Context.MODE_PRIVATE;
+import static com.example.licenta.MainActivity.domain;
 
 public class CalendarCustomView extends LinearLayout{
     private static final String TAG = CalendarCustomView.class.getSimpleName();
@@ -40,9 +45,8 @@ public class CalendarCustomView extends LinearLayout{
     private Calendar cal = Calendar.getInstance(Locale.ENGLISH);
     private Context context;
     private GridAdapter mAdapter;
-    private DatabaseQuery mQuery;
+    private List<EventObjects> mEvents = new ArrayList<EventObjects>();
     Context ctx ;
-    Database myDb;
     private Date convertStringToDate(String dateInString){
         DateFormat format = new SimpleDateFormat("d-MM-yyyy", Locale.ENGLISH);
         Date date = null;
@@ -78,6 +82,10 @@ public class CalendarCustomView extends LinearLayout{
         currentDate = (TextView)view.findViewById(R.id.display_current_date);
         addEventButton = (Button)view.findViewById(R.id.add_calendar_event);
         calendarGridView = (GridView)view.findViewById(R.id.calendar_grid);
+
+        String idUser = getIdUser();
+        domain = domain.substring(0, 1).toUpperCase() + domain.substring(1).toLowerCase();
+
     }
     private void setPreviousButtonClickEvent(){
         previousButton.setOnClickListener(new OnClickListener() {
@@ -107,35 +115,16 @@ public class CalendarCustomView extends LinearLayout{
     }
     private void setUpCalendarAdapter(){
         List<Date> dayValueInCells = new ArrayList<Date>();
-        mQuery = new DatabaseQuery(context);
-        List<EventObjects> mEvents = mQuery.getAllFutureEvents();
-        mQuery.insertData("14-08-2018", "lalal", 7);
-//        List<EventObjects> mEvents = new ArrayList<>();
+//        mQuery = new DatabaseQuery(context);
+//        final List<EventObjects> mEvents = mQuery.getAllFutureEvents();
+//        mQuery.insertData("14-08-2018", "lalal", 7);
+       // final List<EventObjects> mEvents = new ArrayList<>();
         Calendar mCal = (Calendar)cal.clone();
 
-//        myDb = new Database(ctx);
-//
-//        Cursor cursor = myDb.getAllData();
-//        if(cursor.getCount() == 0) {
-//            // show messageshowMessage("Error","Nothing found");
-//
-//            return;
-//        }
-//
-//        StringBuffer buffer = new StringBuffer();
-//        while (cursor.moveToNext()) {
-//            int id = cursor.getInt(cursor.getColumnIndexOrThrow("int"));
-//            String message = cursor.getString(cursor.getColumnIndexOrThrow("message"));
-//            String startDate = cursor.getString(cursor.getColumnIndexOrThrow("start_date"));
-//            //convert start date to date object
-//            Date reminderDate = convertStringToDate(startDate);
-////                if(reminderDate.after(dateToday) || reminderDate.equals(dateToday)){
-//            mEvents.add(new EventObjects(id, message, reminderDate));
-//        }
-//
-//        // Show all data
-
-
+        String domain = getDomainCompany();
+        domain = domain.substring(0,1).toUpperCase() + domain.substring(1).toLowerCase();
+        String idUser = getIdUser();
+        //requestEventsDetails(idUser);
         mCal.set(Calendar.DAY_OF_MONTH, 1);
         int firstDayOfTheMonth = mCal.get(Calendar.DAY_OF_WEEK) - 1;
         mCal.add(Calendar.DAY_OF_MONTH, -firstDayOfTheMonth);
@@ -149,6 +138,75 @@ public class CalendarCustomView extends LinearLayout{
         mAdapter = new GridAdapter(context, dayValueInCells, cal, mEvents);
         calendarGridView.setAdapter(mAdapter);
 
+        Query query = FirebaseDatabase.getInstance().getReference("Events" + domain).child(idUser);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                mEvents.clear();
+                if (dataSnapshot.exists()) {
+                    int i = 0;
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        EventObjects events = snapshot.getValue(EventObjects.class);
+                        //String idUser = snapshot.getKey();
+                        mEvents.add(events);
+                        i = i+1;
+
+                    }
+                      mAdapter.notifyDataSetChanged();
+
+                } else {
+                    Toast.makeText(context, "No events availables", Toast.LENGTH_SHORT).show();
+                    //startActivity(new Intent(mCtx, ProfileUser.class));
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
     }
+    private String getDomainCompany ()
+    {
+        SharedPreferences prefs = context.getSharedPreferences("MainActivity", MODE_PRIVATE);
+        String domain = prefs.getString("domain", "No name defined");
+        return domain;
+    }
+
+    private String getIdUser ()
+    {
+        SharedPreferences prefs = context.getSharedPreferences("MainActivity", MODE_PRIVATE);
+        String idUser = prefs.getString("idUser", "No name defined");
+        return idUser;
+    }
+
+    private void requestEventsDetails(String idUser) {
+        domain = domain.substring(0, 1).toUpperCase() + domain.substring(1).toLowerCase();
+
+        Query query = FirebaseDatabase.getInstance().getReference("Events"+domain)
+                .child(idUser);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    EventObjects event = dataSnapshot.getValue(EventObjects.class);
+                    String id = dataSnapshot.getKey();
+                    mEvents.add(event);
+
+
+                } else {
+                    Toast.makeText(context, "No details", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
 }

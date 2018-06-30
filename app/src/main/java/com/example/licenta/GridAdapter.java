@@ -58,18 +58,19 @@ public class GridAdapter extends ArrayAdapter {
         Calendar eventCalendar = Calendar.getInstance();
 
         for(i = 0; i < allEvents.size(); i++){
-            eventCalendar.setTime(allEvents.get(i).getDate());
-            if(dayValue == eventCalendar.get(Calendar.DAY_OF_MONTH) && displayMonth == eventCalendar.get(Calendar.MONTH) + 1
-                    && displayYear == eventCalendar.get(Calendar.YEAR)){
-                eventIndicator.setBackgroundColor(Color.parseColor("#000000"));//toate evenimentele din baza de date
-                eventIndicator.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        eventIndicator.setText(allEvents.get(i).getMessage());
-                    }
-                });
+              eventCalendar.setTime(allEvents.get(i).getDate());
+              if (dayValue == eventCalendar.get(Calendar.DAY_OF_MONTH) && displayMonth == eventCalendar.get(Calendar.MONTH) + 1
+                      && displayYear == eventCalendar.get(Calendar.YEAR)) {
+                  eventIndicator.setBackgroundColor(Color.parseColor("#000000"));//toate evenimentele din baza de date
+                  eventIndicator.setOnClickListener(new View.OnClickListener() {
+                      @Override
+                      public void onClick(View view) {
+                          eventIndicator.setText(allEvents.get(i).getMessage());
+                      }
+                  });
 
-            }
+              }
+
         }
         return view;
     }
