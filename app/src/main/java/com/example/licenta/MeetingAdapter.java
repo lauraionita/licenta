@@ -52,10 +52,10 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.MeetingV
         meetingDetails.name = meeting.name;
 
         holder.textViewName.setText(meeting.name);
-        holder.textViewDate.setText("Data: " + meeting.date);
-        holder.textViewStartMeeting.setText("Start meeting: " + meeting.startMeeting);
-        holder.textViewEndMeeting.setText("End meeting: " + meeting.endMeeting);
-        holder.textViewCapacity.setText("Capacity: " + meeting.capacity);
+//        holder.textViewDate.setText("Data: " + meeting.date);
+//        holder.textViewStartMeeting.setText("Start meeting: " + meeting.startMeeting);
+//        holder.textViewEndMeeting.setText("End meeting: " + meeting.endMeeting);
+//        holder.textViewCapacity.setText("Capacity: " + meeting.capacity);
 
         holder.buttonAddMeeting.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,18 +79,16 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.MeetingV
 
     class MeetingViewHolder extends RecyclerView.ViewHolder {
 
-        TextView textViewName, textViewDate, textViewStartMeeting, textViewEndMeeting, textViewCapacity;
+        TextView textViewName, textViewFloor, textViewEquipment;
         Button buttonAddMeeting;
 
         public MeetingViewHolder(@NonNull View itemView) {
             super(itemView);
 
             textViewName = itemView.findViewById(R.id.tv_name);
-            textViewDate = itemView.findViewById(R.id.tv_date_meeting);
-            textViewStartMeeting = itemView.findViewById(R.id.tv_start_meeting);
-            textViewEndMeeting = itemView.findViewById(R.id.tv_end_meeting);
-            textViewCapacity = itemView.findViewById(R.id.tv_capacity_meeting);
-            buttonAddMeeting = itemView.findViewById(R.id.bt_add_meeting);
+            textViewFloor = itemView.findViewById(R.id.tv_floor);
+            textViewEquipment = itemView.findViewById(R.id.tv_equipment);
+
         }
     }
 
@@ -113,6 +111,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.MeetingV
     {
         SharedPreferences prefs = mCtx.getSharedPreferences("MainActivity", MODE_PRIVATE);
         String domain = prefs.getString("domain", "No name defined");
+        domain = domain.substring(0,1).toUpperCase() + domain.substring(1).toLowerCase();
 
         return domain;
     }

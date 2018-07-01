@@ -56,7 +56,7 @@ public class AvailableRoom extends AppCompatActivity {
         String domain = getDomainCompany();
         domain = domain.substring(0,1).toUpperCase() + domain.substring(1).toLowerCase();
 
-        Query query = FirebaseDatabase.getInstance().getReference("RoomsMeetingCentric"+domain)
+        Query query = FirebaseDatabase.getInstance().getReference("RoomsMeeting"+domain)
                 .orderByChild("capacity")
                 .equalTo(capacity);
 
@@ -81,14 +81,14 @@ public class AvailableRoom extends AppCompatActivity {
                     adapter.notifyDataSetChanged();
 
                 } else {
-                    Toast.makeText(AvailableRoom.this, "No room availables", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AvailableRoom.this, "No room availables in here", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(AvailableRoom.this, BookMeeting.class));
                 }
             }
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
-                }
+            }
         });
     }
 
@@ -102,25 +102,25 @@ public class AvailableRoom extends AppCompatActivity {
 //            final int capacity = prefs.getInt("capacity", 0); //0 is the default value.
         Meeting meetingDetails = getDetails();
 
-            if (meeting.date.equals(meetingDetails.date)){
-                if (meeting.startMeeting.equals(meetingDetails.startMeeting)){
-                        return false;
-                    }
+        if (meeting.date.equals(meetingDetails.date)){
+            if (meeting.startMeeting.equals(meetingDetails.startMeeting)){
+                return false;
             }
+        }
 
-            return true;
+        return true;
     }
 
     public Meeting getDetails()
     {    Meeting meeting = new Meeting();
-         SharedPreferences prefs = getSharedPreferences("BookMeeting", MODE_PRIVATE);
+        SharedPreferences prefs = getSharedPreferences("BookMeeting", MODE_PRIVATE);
         //String restoredText = prefs.getString("text", null);
-         meeting.date = prefs.getString("date", "No name defined");//"No name defined" is the default value.
-         meeting.startMeeting = prefs.getString("hourStart", "No name defined");
-         meeting.endMeeting= prefs.getString("hourEnd", "No name defined");
-         meeting.capacity = prefs.getInt("capacity", 0); //0 is the default value.
+        meeting.date = prefs.getString("date", "No name defined");//"No name defined" is the default value.
+        meeting.startMeeting = prefs.getString("hourStart", "No name defined");
+        meeting.endMeeting= prefs.getString("hourEnd", "No name defined");
+        meeting.capacity = prefs.getInt("capacity", 0); //0 is the default value.
 
-    return meeting;
+        return meeting;
     }
 
     private List<Meeting> removeDuplicates(List<Meeting> listWithDuplicates) {

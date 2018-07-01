@@ -1,7 +1,7 @@
 package com.example.licenta;
 
 public class Meeting {
-    public String name, date, startMeeting,endMeeting, idUser;
+    public String name, date, startMeeting,endMeeting, idUser, floor, equipment;
     public int capacity;
     public Meeting(){ }
 

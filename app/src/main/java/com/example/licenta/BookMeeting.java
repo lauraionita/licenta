@@ -152,7 +152,7 @@ public class BookMeeting extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                int capacity = Integer.parseInt(metCapacity.getText().toString());
+                int capacity = 30;
                 String date = mDisplayDate.getText().toString().trim();
                 String hourStart = mDisplayTimeStart.getText().toString().trim();
                 String hourEnd = mDisplayTimeEnd.getText().toString().trim();

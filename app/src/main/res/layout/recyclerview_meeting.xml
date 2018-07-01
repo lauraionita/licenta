@@ -22,33 +22,20 @@
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
 
             <TextView
-                android:id="@+id/tv_capacity_meeting"
+                android:id="@+id/tv_floor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Capacity"
+                android:text="Floor"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
 
 
             <TextView
-                android:id="@+id/tv_date_meeting"
+                android:id="@+id/tv_equipment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Date"
+                android:text="equipment"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
 
-            <TextView
-                android:id="@+id/tv_start_meeting"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Start meeting"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
-
-            <TextView
-                android:id="@+id/tv_end_meeting"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="End meeting"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
 
 
         </LinearLayout>

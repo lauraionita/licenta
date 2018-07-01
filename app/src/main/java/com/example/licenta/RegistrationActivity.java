@@ -117,36 +117,7 @@ public class RegistrationActivity extends AppCompatActivity {
         password = userPassword.getText().toString();
         code = userCode.getText().toString();
         domain_code = domain + "_" + code;
-
-        DatabaseReference ref=FirebaseDatabase.getInstance().getReference().child("DomainCompanies");
-        ref.orderByChild("domain_code").equalTo(domain_code)
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-
-                        if (!dataSnapshot.exists()) {
-                            //this.setVar(false);
-                            com.example.licenta.RegistrationActivity.result_domain = 0;
-                            userDomain.setError("Company domain and code doesn't exist");
-                            userCode.setError("Company domain and code doesn't exist");
-                            }
-
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {}
-                            });
-
-//            Query query = FirebaseDatabase.getInstance().getReference("DomainCompanies")
-//                    .orderByChild("domain_code")
-//                    .equalTo(domain_code);
-//            rootRef = firebase.database().ref();
-//		const ref = rootRef.child('DomainCompanies').orderByChild('domain_code').equalTo(domain_code);
-//
-//        if (query.isEmpty()){
-//                result=false;
-//                Toast.makeText(this, "Company domain and code doesn't exist",Toast.LENGTH_SHORT).show();
-//            }
+        validateDomain();
 
         if (username.isEmpty() || domain.isEmpty() || password.isEmpty() || code.isEmpty()) {
             result=false;
@@ -170,6 +141,31 @@ public class RegistrationActivity extends AppCompatActivity {
         }
 
         return result;
+
+    }
+    private void validateDomain(){
+        domain = userDomain.getText().toString();
+        code = userCode.getText().toString();
+        domain_code = domain + "_" + code;
+
+        DatabaseReference ref=FirebaseDatabase.getInstance().getReference().child("DomainCompanies");
+        ref.orderByChild("domain_code").equalTo(domain_code)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        if (!dataSnapshot.exists()) {
+                            //this.setVar(false);
+                            com.example.licenta.RegistrationActivity.result_domain = 0;
+                            userDomain.setError("Company domain and code doesn't exist");
+                            userCode.setError("Company domain and code doesn't exist");
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {}
+                });
 
     }
     @Override

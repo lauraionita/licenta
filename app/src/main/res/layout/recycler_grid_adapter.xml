@@ -12,6 +12,7 @@
         android:textStyle="bold"
         android:layout_gravity="center"
         android:text="@string/last_date"/>
+
     <LinearLayout
         android:id="@+id/event_wrapper"
         android:layout_width="match_parent"

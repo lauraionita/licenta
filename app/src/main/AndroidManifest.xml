@@ -37,6 +37,7 @@
         <activity android:name=".AddPeople"/>
         <activity android:name=".Atendees"/>
         <activity android:name=".CustomCalendarActivity"/>
+        <activity android:name=".EventDetails"/>
 
 
     </application>

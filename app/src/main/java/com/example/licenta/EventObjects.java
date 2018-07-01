@@ -6,10 +6,40 @@ import java.util.Date;
 import java.util.Locale;
 
 public class EventObjects {
-   // private int id;
-   // private String message;
+
     private String date;
-    private String startMeeting, endMeeting, location;
+    private String startMeeting;
+    private String endMeeting;
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getStartMeeting() {
+        return startMeeting;
+    }
+
+    public void setStartMeeting(String startMeeting) {
+        this.startMeeting = startMeeting;
+    }
+
+    public String getEndMeeting() {
+        return endMeeting;
+    }
+
+    public void setEndMeeting(String endMeeting) {
+        this.endMeeting = endMeeting;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    private String name;
     public EventObjects(){}
 
 
@@ -33,6 +63,12 @@ public class EventObjects {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
+
         return newDate;
+    }
+
+    public String getDetails(){
+        return this.date+"_"+this.startMeeting+"_"+this.endMeeting;
     }
 }

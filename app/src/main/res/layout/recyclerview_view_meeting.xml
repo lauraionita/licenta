@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimarySwipe">
 
     <android.support.v7.widget.CardView
         android:layout_width="319dp"
@@ -24,19 +25,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:background="#e3e2ad"
+                android:background="@color/colorPrimaryDarkSwipe"
                 android:orientation="horizontal">
 
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="32dp"
                     android:layout_height="237dp"
                     android:layout_weight="1"
-                    android:background="#e3e2ad"
+                    android:background="@color/colorPrimaryDarkSwipe"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/tvDayMeeting"
-                        android:layout_width="119dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="64dp"
                         android:layout_gravity="top|left"
                         android:layout_marginEnd="8dp"
@@ -44,8 +45,9 @@
                         android:layout_marginRight="8dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="28dp"
-                        android:gravity="left"
-                        android:text="Ziua meeting"
+                        android:gravity="center"
+                        android:textColor="#ffa500"
+                        android:textSize="20sp"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -55,7 +57,7 @@
 
                     <TextView
                         android:id="@+id/tvMonthMeeting"
-                        android:layout_width="112dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="66dp"
                         android:layout_gravity="top|left"
                         android:layout_marginBottom="8dp"
@@ -64,8 +66,9 @@
                         android:layout_marginRight="8dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
-                        android:gravity="left"
-                        android:text="Luna meeting"
+                        android:gravity="center"
+                        android:textColor="#ffa500"
+                        android:textSize="20sp"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -82,14 +85,14 @@
                     android:id="@+id/verticalLine"
                     android:layout_width="3dp"
                     android:layout_height="match_parent"
-                    android:background="@color/green"></View>
+                    android:background="#ffa500"></View>
 
 
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="160dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="#e3e2ad"
+                    android:background="@color/colorPrimaryDarkSwipe"
                     android:orientation="vertical">
 
                     <ImageView
@@ -117,6 +120,7 @@
                         android:layout_marginTop="16dp"
                         android:layout_toLeftOf="@+id/imageView1"
                         android:text="Location"
+                        android:textColor="#ffa500"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -140,6 +144,7 @@
                         android:layout_marginStart="8dp"
                         android:gravity="left"
                         android:text="Start meeting"
+                        android:textColor="#ffa500"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.329"
@@ -158,6 +163,7 @@
                         android:layout_marginTop="8dp"
                         android:gravity="left"
                         android:text="End meeting"
+                        android:textColor="#ffa500"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.333"
@@ -173,6 +179,7 @@
                         android:layout_marginTop="12dp"
                         android:gravity="left"
                         android:text="Add people"
+                        android:textColor="#ffa500"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tvEndMeeting" />
@@ -186,6 +193,7 @@
                         android:layout_marginTop="20dp"
                         android:gravity="left"
                         android:text="Atendees"
+                        android:textColor="#ffa500"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tvAddPeople" />

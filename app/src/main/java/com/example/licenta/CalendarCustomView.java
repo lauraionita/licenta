@@ -1,7 +1,11 @@
 package com.example.licenta;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -45,8 +49,14 @@ public class CalendarCustomView extends LinearLayout{
     private Calendar cal = Calendar.getInstance(Locale.ENGLISH);
     private Context context;
     private GridAdapter mAdapter;
+    private EventAdapter mEventsAdapter;
+    private int i;
     private List<EventObjects> mEvents = new ArrayList<EventObjects>();
+    private List<EventObjects> mEventsDay = new ArrayList<EventObjects>();
     Context ctx ;
+    private RecyclerView recyclerView;
+
+
     private Date convertStringToDate(String dateInString){
         DateFormat format = new SimpleDateFormat("d-MM-yyyy", Locale.ENGLISH);
         Date date = null;
@@ -68,7 +78,7 @@ public class CalendarCustomView extends LinearLayout{
         setUpCalendarAdapter();
         setPreviousButtonClickEvent();
         setNextButtonClickEvent();
-        setGridCellClickEvents();
+       // setGridCellClickEvents();
         Log.d(TAG, "I need to call this method");
     }
     public CalendarCustomView(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -105,16 +115,18 @@ public class CalendarCustomView extends LinearLayout{
             }
         });
     }
-    private void setGridCellClickEvents(){
-        calendarGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(context, "Clicked " + position, Toast.LENGTH_LONG).show();
-            }
-        });
-    }
+//    private void setGridCellClickEvents(){
+//        calendarGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                for(i = 0; i < mEvents.size(); i++) {
+//                    Toast.makeText(context, "Clicked " + mEvents.get(i).getMessage(), Toast.LENGTH_LONG).show();
+//                }
+//            }
+//        });
+//    }
     private void setUpCalendarAdapter(){
-        List<Date> dayValueInCells = new ArrayList<Date>();
+       final List<Date> dayValueInCells = new ArrayList<Date>();
 //        mQuery = new DatabaseQuery(context);
 //        final List<EventObjects> mEvents = mQuery.getAllFutureEvents();
 //        mQuery.insertData("14-08-2018", "lalal", 7);
@@ -167,6 +179,38 @@ public class CalendarCustomView extends LinearLayout{
             }
         });
 
+        calendarGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                mEventsDay = new ArrayList<>();
+
+                Calendar dateCal = Calendar.getInstance();
+                dateCal.setTime(dayValueInCells.get(position));
+                int dayValue = dateCal.get(Calendar.DAY_OF_MONTH);
+                int displayMonth = dateCal.get(Calendar.MONTH) + 1;
+                int displayYear = dateCal.get(Calendar.YEAR);
+                int currentMonth = cal.get(Calendar.MONTH) + 1;
+                int currentYear = cal.get(Calendar.YEAR);
+                Calendar eventCalendar = Calendar.getInstance();
+
+                for(i = 0; i < mEvents.size(); i++) {
+                    eventCalendar.setTime(mEvents.get(i).getDate());
+                    if (dayValue == eventCalendar.get(Calendar.DAY_OF_MONTH) && displayMonth == eventCalendar.get(Calendar.MONTH) + 1
+                            && displayYear == eventCalendar.get(Calendar.YEAR)) {
+
+                        Toast.makeText(context, "Clicked " + mEvents.get(i), Toast.LENGTH_LONG).show();
+                        mEventsDay.add(mEvents.get(i));
+
+                        SharedPreferences.Editor editor = context.getSharedPreferences("CalendarCustomView", MODE_PRIVATE).edit();
+                        String idUnique = Integer.toString(i);
+                        editor.putString(idUnique, mEvents.get(i).getDetails());
+                        editor.apply();
+                    }
+                   // context.startActivity(new Intent(context, EventDetails.class));
+                }
+               // mEventsAdapter.notifyDataSetChanged();
+            }
+        });
     }
     private String getDomainCompany ()
     {
@@ -182,31 +226,5 @@ public class CalendarCustomView extends LinearLayout{
         return idUser;
     }
 
-    private void requestEventsDetails(String idUser) {
-        domain = domain.substring(0, 1).toUpperCase() + domain.substring(1).toLowerCase();
-
-        Query query = FirebaseDatabase.getInstance().getReference("Events"+domain)
-                .child(idUser);
-
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    EventObjects event = dataSnapshot.getValue(EventObjects.class);
-                    String id = dataSnapshot.getKey();
-                    mEvents.add(event);
-
-
-                } else {
-                    Toast.makeText(context, "No details", Toast.LENGTH_SHORT).show();
-
-                }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
 
 }
